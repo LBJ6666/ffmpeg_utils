@@ -29,8 +29,12 @@ def dir_list(path, allfiles):
     return allfiles
 
 
-# 分离视频中的音频和画面视频
 def run_splitter(fileList):
+    '''
+    分离视频中的音频和画面视频
+    :param fileList: 文件路径
+    '''
+
     """
        ffmpeg的一些命令
        ffmpeg -i input.mp4 -vn -y -acodec copy output.aac
@@ -58,7 +62,7 @@ def run_splitter(fileList):
         out_video_name = input_name + '_out.mp4'
 
         # 源文件中音频格式
-        audio_type = vedio_info.get_audio_type(filename)  # 音频输出格式需要和源文件内音频一致，不如会报错
+        audio_type = vedio_info.get_audio_type(filename)[0]  # 音频输出格式需要和源文件内音频一致，不然会报错
         out_audio_name = input_name + '_out.' + audio_type
 
         # 视频流的输路径
@@ -83,12 +87,11 @@ def audio_clip(fileList, time_start=r'00:00:00', time_end=r'00:00:10'):
     :param fileList:    文件路径
     :param time_start:   那个时间段开始
     :param time_end:  截取多长时间，这里是一分钟
-    :return:
     '''
 
     for filename in fileList:
         # 源文件中音频格式
-        audio_type = vedio_info.get_audio_type(filename)  # 音频输出格式需要和源文件内音频一致，不如会报错
+        audio_type = vedio_info.get_audio_type(filename)[0]  # 音频输出格式需要和源文件内音频一致，不然会报错
 
         # 视频名称
         input_name = filename.split('.')[0].split('\\')[-1]
