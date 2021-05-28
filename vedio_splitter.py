@@ -145,7 +145,8 @@ def audio_clip(fileList, save_path, time_start=r'00:10:00', time_interval=r'00:1
 
 
 # 截图或GIF
-def print_screen(file_list, save_path, time_start=r'00:10:00', img_width='1080', img_height='900', cut_gif=False):
+def print_screen(file_list, save_path, time_start=r'00:10:00', img_width='1080', img_height='900', cut_gif=False,
+                 gif_time='5'):
     '''
     截图或GIF
 
@@ -155,6 +156,7 @@ def print_screen(file_list, save_path, time_start=r'00:10:00', img_width='1080',
     :param img_width:  图片的宽度
     :param img_height:  图片的高度
     :param cut_gif:  是否截取GIF图
+    :param gif_time:  gif时长
     '''
 
     for file_name in file_list:
@@ -176,8 +178,6 @@ def print_screen(file_list, save_path, time_start=r'00:10:00', img_width='1080',
         code = 'ffmpeg -i {} -y -f image2 -ss {} -t 0.001 -s {} {}'
         # 截取GIF图
         code_gif = 'ffmpeg -i {} -ss {} -t {} -s {} -pix_fmt rgb24 {}'
-        # GIF的时间
-        gif_time = '10'
         if cut_gif:
             # 截取GIF
             code_finish = code_gif.format(file_name, time_start, gif_time, img_size, out_audio_path)
@@ -188,10 +188,6 @@ def print_screen(file_list, save_path, time_start=r'00:10:00', img_width='1080',
         os.system(code_finish)
 
     print('End #################')
-
-
-def cut_gif():
-    pass
 
 
 if __name__ == '__main__':
